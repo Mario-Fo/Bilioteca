@@ -1,0 +1,19 @@
+Base de datos
+Categorias
+id
+nombre varchar(100)
+
+Libros
+id
+nombre varchar(250)
+isbn varchar(100)
+estatus integer
+autor varchar(250)
+id_categoria integer
+
+Prestamos
+id
+id_usuario
+id_libro
+fecha datetime
+fecha_entrega datetime

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Biblioteca</title>
+
+  <!-- Tailwind via CDN (para producción, ideal compilar Tailwind) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <!-- Overlay móvil -->
+  <div id="overlay" class="fixed inset-0 bg-slate-900/50 hidden z-40"></div>
+
+  <!-- Layout -->
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed md:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200
+             transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-out
+             flex flex-col"
+      aria-label="Barra lateral"
+    >
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
+        <a href="#" class="flex items-center gap-2">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white font-semibold">
+            B
+          </span>
+          <div class="leading-tight">
+            <p class="font-semibold">Biblioteca</p>
+            <p class="text-xs text-slate-500">Panel de administración</p>
+          </div>
+        </a>
+
+        <!-- Botón cerrar (solo móvil) -->
+        <button id="btnCloseSidebar"
+          class="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          aria-label="Cerrar menú lateral"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="p-4 space-y-1" aria-label="Navegación principal">
+        <a href="#inicio" class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">
+          <span class="h-2 w-2 rounded-full bg-indigo-600"></span>
+          Inicio
+        </a>
+        <a href="#libros" class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">
+          <span class="h-2 w-2 rounded-full bg-slate-300"></span>
+          Libros
+        </a>
+        <a href="#prestamos" class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">
+          <span class="h-2 w-2 rounded-full bg-slate-300"></span>
+          Préstamos
+        </a>
+
+        <div class="pt-3 mt-3 border-t border-slate-200">
+          <a href="#salir" class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-rose-50 text-rose-700 font-medium">
+            <span class="h-2 w-2 rounded-full bg-rose-500"></span>
+            Salir
+          </a>
+        </div>
+      </nav>
+
+      <div class="mt-auto p-4 border-t border-slate-200">
+        <p class="text-xs text-slate-500">
+          © <span id="year"></span> Biblioteca • Admin
+        </p>
+      </div>
+    </aside>
+
+    <!-- Main wrapper -->
+    <div class="flex-1 md:ml-0">
+      <!-- Header -->
+      <header class="sticky top-0 z-30 bg-white border-b border-slate-200">
+        <div class="h-16 px-4 sm:px-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <!-- Hamburguesa (solo móvil) -->
+            <button id="btnOpenSidebar"
+              class="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              aria-label="Abrir menú lateral"
+              aria-controls="sidebar"
+              aria-expanded="false"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+
+            <h1 class="text-lg sm:text-xl font-semibold">Administración</h1>
+          </div>
+
+          <!-- Menú header solicitado -->
+          <nav class="hidden lg:flex items-center gap-1" aria-label="Menú superior">
+            <a href="#inicio" class="px-4 py-2 rounded-lg hover:bg-slate-100 font-medium">Inicio</a>
+            <a href="#usuarios" class="px-4 py-2 rounded-lg hover:bg-slate-100 font-medium">Usuarios</a>
+            <a href="#libros" class="px-4 py-2 rounded-lg hover:bg-slate-100 font-medium">Libros</a>
+            <a href="#prestamos" class="px-4 py-2 rounded-lg hover:bg-slate-100 font-medium">Préstamos</a>
+            <a href="#salidas" class="px-4 py-2 rounded-lg hover:bg-slate-100 font-medium">Salidas</a>
+          </nav>
+
+          <!-- Acciones -->
+          <div class="flex items-center gap-3">
+            <div class="hidden sm:block">
+              <label class="sr-only" for="search">Buscar</label>
+              <div class="relative">
+                <input id="search" type="search" placeholder="Buscar..."
+                  class="w-52 md:w-72 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 pr-10
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <button class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 text-white px-4 py-2 font-medium hover:bg-indigo-700">
+              + Nuevo
+            </button>
+          </div>
+        </div>
+
+        <!-- Menú superior móvil (opcional): lo muestro cuando < lg -->
+        <div class="lg:hidden border-t border-slate-200">
+          <nav class="px-4 sm:px-6 py-2 flex flex-wrap gap-2" aria-label="Menú superior móvil">
+            <a href="#inicio" class="px-3 py-2 rounded-lg bg-slate-100 font-medium">Inicio</a>
+            <a href="#usuarios" class="px-3 py-2 rounded-lg hover:bg-slate-100 font-medium">Usuarios</a>
+            <a href="#libros" class="px-3 py-2 rounded-lg hover:bg-slate-100 font-medium">Libros</a>
+            <a href="#prestamos" class="px-3 py-2 rounded-lg hover:bg-slate-100 font-medium">Préstamos</a>
+            <a href="#salidas" class="px-3 py-2 rounded-lg hover:bg-slate-100 font-medium">Salidas</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Contenido principal -->
+      <main class="p-4 sm:p-6">
+        <!-- Breadcrumb / contexto -->
+        <section class="mb-6">
+          <p class="text-sm text-slate-500">Panel / <span class="text-slate-700 font-medium">Inicio</span></p>
+          <h2 class="mt-2 text-2xl font-semibold" id="inicio">Resumen</h2>
+          <p class="text-slate-600 mt-1">Vista general de usuarios, libros y préstamos.</p>
+        </section>
+
+        <!-- Cards KPI -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Usuarios</p>
+            <p class="mt-2 text-3xl font-semibold">1,248</p>
+            <p class="mt-2 text-sm text-slate-600">Activos este mes</p>
+          </article>
+
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Libros</p>
+            <p class="mt-2 text-3xl font-semibold">8,420</p>
+            <p class="mt-2 text-sm text-slate-600">En catálogo</p>
+          </article>
+
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Préstamos</p>
+            <p class="mt-2 text-3xl font-semibold">312</p>
+            <p class="mt-2 text-sm text-slate-600">En curso</p>
+          </article>
+
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Retrasos</p>
+            <p class="mt-2 text-3xl font-semibold">27</p>
+            <p class="mt-2 text-sm text-slate-600">Requieren seguimiento</p>
+          </article>
+        </section>
+
+        <!-- Grilla principal -->
+        <section class="mt-6 grid grid-cols-1 xl:grid-cols-3 gap-4">
+          <!-- Tabla (Libros recientes) -->
+          <article class="xl:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-sm">
+            <header class="p-5 border-b border-slate-200 flex items-center justify-between">
+              <h3 class="text-lg font-semibold" id="libros">Libros recientes</h3>
+              <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-700">Ver todos</a>
+            </header>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-sm">
+                <thead class="bg-slate-50 text-slate-600">
+                  <tr>
+                    <th class="text-left font-medium px-5 py-3">Título</th>
+                    <th class="text-left font-medium px-5 py-3">Autor</th>
+                    <th class="text-left font-medium px-5 py-3">Estado</th>
+                    <th class="text-right font-medium px-5 py-3">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr class="hover:bg-slate-50">
+                    <td class="px-5 py-4 font-medium">Cien años de soledad</td>
+                    <td class="px-5 py-4 text-slate-600">G. García Márquez</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 px-2.5 py-1 text-xs font-medium">
+                        Disponible
+                      </span>
+                    </td>
+                    <td class="px-5 py-4 text-right">
+                      <button class="rounded-lg px-3 py-1.5 hover:bg-slate-100 font-medium">Editar</button>
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="px-5 py-4 font-medium">El principito</td>
+                    <td class="px-5 py-4 text-slate-600">A. de Saint-Exupéry</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center rounded-full bg-amber-50 text-amber-700 px-2.5 py-1 text-xs font-medium">
+                        Prestado
+                      </span>
+                    </td>
+                    <td class="px-5 py-4 text-right">
+                      <button class="rounded-lg px-3 py-1.5 hover:bg-slate-100 font-medium">Editar</button>
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="px-5 py-4 font-medium">Introducción a Algoritmos</td>
+                    <td class="px-5 py-4 text-slate-600">Cormen, Leiserson</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 px-2.5 py-1 text-xs font-medium">
+                        Disponible
+                      </span>
+                    </td>
+                    <td class="px-5 py-4 text-right">
+                      <button class="rounded-lg px-3 py-1.5 hover:bg-slate-100 font-medium">Editar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Panel (Préstamos) -->
+          <article class="bg-white border border-slate-200 rounded-2xl shadow-sm">
+            <header class="p-5 border-b border-slate-200 flex items-center justify-between">
+              <h3 class="text-lg font-semibold" id="prestamos">Préstamos activos</h3>
+              <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-700">Gestionar</a>
+            </header>
+
+            <div class="p-5 space-y-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-medium">Usuario: Ana López</p>
+                  <p class="text-sm text-slate-600">“El principito” • Vence: 12/02/2026</p>
+                </div>
+                <span class="text-xs font-medium bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full">En curso</span>
+              </div>
+
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-medium">Usuario: Juan Pérez</p>
+                  <p class="text-sm text-slate-600">“Cálculo I” • Vence: 09/02/2026</p>
+                </div>
+                <span class="text-xs font-medium bg-rose-50 text-rose-700 px-2.5 py-1 rounded-full">Riesgo</span>
+              </div>
+
+              <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+                <p class="text-sm font-medium">Acción rápida</p>
+                <p class="text-sm text-slate-600 mt-1">Registra un préstamo o marca devolución.</p>
+                <div class="mt-3 flex gap-2">
+                  <button class="flex-1 rounded-xl bg-indigo-600 text-white px-3 py-2 font-medium hover:bg-indigo-700">
+                    Nuevo préstamo
+                  </button>
+                  <button class="flex-1 rounded-xl bg-white border border-slate-200 px-3 py-2 font-medium hover:bg-slate-100">
+                    Devolución
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- Secciones de anclaje solicitadas -->
+        <section class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" id="usuarios">
+            <h3 class="text-lg font-semibold">Usuarios</h3>
+            <p class="text-slate-600 mt-1">Aquí podrías gestionar altas, bajas, roles, sanciones y búsquedas.</p>
+          </article>
+
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" id="salidas">
+            <h3 class="text-lg font-semibold">Salidas</h3>
+            <p class="text-slate-600 mt-1">Registro de salidas / auditoría (ej. exportaciones, bajas, logs).</p>
+          </article>
+
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" id="salir">
+            <h3 class="text-lg font-semibold text-rose-700">Salir</h3>
+            <p class="text-slate-600 mt-1">Botón de cierre de sesión (simulado). Conecta aquí tu lógica real.</p>
+            <button class="mt-3 rounded-xl bg-rose-600 text-white px-4 py-2 font-medium hover:bg-rose-700">
+              Cerrar sesión
+            </button>
+          </article>
+        </section>
+
+        <footer class="mt-10 text-sm text-slate-500">
+          <p>Hecho con HTML semántico + Tailwind CSS • Responsivo</p>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

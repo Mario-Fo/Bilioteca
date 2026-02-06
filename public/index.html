@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca | Inicio</title>
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="h-16 flex items-center justify-between">
+        <!-- Brand -->
+        <a href="#inicio" class="flex items-center gap-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white font-bold">
+            B
+          </span>
+          <div class="leading-tight">
+            <p class="font-semibold">Biblioteca</p>
+            <p class="text-xs text-slate-500">Lectura • Comunidad • Conocimiento</p>
+          </div>
+        </a>
+
+        <!-- Desktop menu -->
+        <nav class="hidden md:flex items-center gap-2" aria-label="Menú principal">
+          <a href="#inicio" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Inicio</a>
+          <a href="#login" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Login</a>
+          <a href="#catalogo" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Catálogo</a>
+          <a href="#servicios" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Servicios</a>
+          <a href="#contacto" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Contacto</a>
+        </nav>
+
+        <!-- Right actions -->
+        <div class="hidden md:flex items-center gap-2">
+          <a href="#login"
+             class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 font-medium hover:bg-slate-100">
+            Entrar
+          </a>
+          <a href="#catalogo"
+             class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700">
+            Ver catálogo
+          </a>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button id="btnMenu"
+          class="md:hidden inline-flex items-center justify-center rounded-xl p-2 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          aria-label="Abrir menú"
+          aria-controls="mobileMenu"
+          aria-expanded="false"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu panel -->
+      <div id="mobileMenu" class="md:hidden hidden pb-4" role="dialog" aria-label="Menú móvil">
+        <div class="mt-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+          <nav class="flex flex-col gap-1" aria-label="Menú principal móvil">
+            <a href="#inicio" class="rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">Inicio</a>
+            <a href="#login" class="rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">Login</a>
+            <a href="#catalogo" class="rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">Catálogo</a>
+            <a href="#servicios" class="rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">Servicios</a>
+            <a href="#contacto" class="rounded-xl px-4 py-3 hover:bg-slate-100 font-medium">Contacto</a>
+
+            <div class="mt-2 grid grid-cols-2 gap-2">
+              <a href="#login"
+                 class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 font-medium hover:bg-slate-100">
+                Entrar
+              </a>
+              <a href="#catalogo"
+                 class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700">
+                Ver catálogo
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="inicio">
+    <section class="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <!-- Text -->
+        <div>
+          <p class="inline-flex items-center gap-2 rounded-full bg-indigo-50 text-indigo-700 px-4 py-1.5 text-sm font-medium">
+            <span class="h-2 w-2 rounded-full bg-indigo-600"></span>
+            Plataforma de Biblioteca
+          </p>
+
+          <h1 class="mt-4 text-4xl sm:text-5xl font-semibold tracking-tight">
+            Encuentra, reserva y gestiona libros en minutos.
+          </h1>
+
+          <p class="mt-4 text-slate-600 text-lg leading-relaxed">
+            Accede al catálogo, consulta disponibilidad, controla préstamos y mantente al día con novedades.
+            Todo en una interfaz simple y rápida, adaptada a cualquier pantalla.
+          </p>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="#catalogo"
+               class="inline-flex items-center justify-center rounded-2xl bg-indigo-600 px-6 py-3 font-medium text-white hover:bg-indigo-700">
+              Explorar catálogo
+            </a>
+            <a href="#login"
+               class="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 font-medium hover:bg-slate-100">
+              Iniciar sesión
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="mt-8 grid grid-cols-3 gap-3">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="text-sm text-slate-500">Libros</p>
+              <p class="mt-1 text-2xl font-semibold">+8,000</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="text-sm text-slate-500">Usuarios</p>
+              <p class="mt-1 text-2xl font-semibold">+1,200</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="text-sm text-slate-500">Préstamos</p>
+              <p class="mt-1 text-2xl font-semibold">24/7</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Images (Stock libres - Unsplash) -->
+        <div class="relative">
+          <div class="absolute -inset-6 bg-indigo-500/10 blur-2xl rounded-full"></div>
+
+          <div class="relative grid grid-cols-12 gap-4">
+            <figure class="col-span-12 sm:col-span-7 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+              <img
+                class="h-64 sm:h-80 w-full object-cover"
+                src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80"
+                alt="Estantería de libros"
+                loading="lazy"
+              />
+              <figcaption class="p-4 text-sm text-slate-600">
+                Catálogo actualizado y organizado por categorías.
+              </figcaption>
+            </figure>
+
+            <figure class="col-span-12 sm:col-span-5 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+              <img
+                class="h-64 sm:h-80 w-full object-cover"
+                src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=80"
+                alt="Persona leyendo en biblioteca"
+                loading="lazy"
+              />
+              <figcaption class="p-4 text-sm text-slate-600">
+                Experiencia de usuario clara y rápida.
+              </figcaption>
+            </figure>
+          </div>
+
+          <p class="mt-3 text-xs text-slate-500">
+            Imágenes de stock: Unsplash (uso libre según su licencia).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección catálogo (preview) -->
+    <section id="catalogo" class="mx-auto max-w-7xl px-4 sm:px-6 pb-12">
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-semibold">Catálogo destacado</h2>
+            <p class="mt-1 text-slate-600">Explora títulos populares y novedades.</p>
+          </div>
+          <div class="w-full sm:w-80">
+            <label for="buscar" class="sr-only">Buscar</label>
+            <div class="relative">
+              <input id="buscar" type="search" placeholder="Buscar por título o autor..."
+                class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <p class="text-sm text-slate-500">Ficción</p>
+            <h3 class="mt-1 font-semibold">Cien años de soledad</h3>
+            <p class="mt-1 text-sm text-slate-600">G. García Márquez</p>
+            <span class="mt-3 inline-flex text-xs font-medium rounded-full bg-emerald-50 text-emerald-700 px-2.5 py-1">
+              Disponible
+            </span>
+          </article>
+
+          <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <p class="text-sm text-slate-500">Juvenil</p>
+            <h3 class="mt-1 font-semibold">El principito</h3>
+            <p class="mt-1 text-sm text-slate-600">A. de Saint-Exupéry</p>
+            <span class="mt-3 inline-flex text-xs font-medium rounded-full bg-amber-50 text-amber-700 px-2.5 py-1">
+              Prestado
+            </span>
+          </article>
+
+          <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <p class="text-sm text-slate-500">Tecnología</p>
+            <h3 class="mt-1 font-semibold">Introducción a algoritmos</h3>
+            <p class="mt-1 text-sm text-slate-600">Cormen, Leiserson</p>
+            <span class="mt-3 inline-flex text-xs font-medium rounded-full bg-emerald-50 text-emerald-700 px-2.5 py-1">
+              Disponible
+            </span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="mx-auto max-w-7xl px-4 sm:px-6 pb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-semibold">Préstamos y devoluciones</h3>
+          <p class="mt-2 text-slate-600">Control de fechas, avisos y estado del préstamo.</p>
+        </article>
+        <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-semibold">Reservas</h3>
+          <p class="mt-2 text-slate-600">Aparta libros y recibe notificaciones cuando estén disponibles.</p>
+        </article>
+        <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-semibold">Historial</h3>
+          <p class="mt-2 text-slate-600">Consulta movimientos, sanciones y actividad del usuario.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Login (sección ancla) -->
+    <section id="login" class="mx-auto max-w-7xl px-4 sm:px-6 pb-14">
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-2xl font-semibold">Login</h2>
+            <p class="mt-2 text-slate-600">Accede para gestionar préstamos, usuarios o administración del catálogo.</p>
+          </div>
+
+          <form class="space-y-4" autocomplete="on">
+            <div>
+              <label for="email" class="block text-sm font-medium text-slate-700">Correo</label>
+              <input id="email" type="email" required
+                class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="nombre@correo.com" />
+            </div>
+
+            <div>
+              <label for="password" class="block text-sm font-medium text-slate-700">Contraseña</label>
+              <input id="password" type="password" required
+                class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="••••••••" />
+            </div>
+
+            <button type="submit"
+              class="w-full rounded-2xl bg-indigo-600 px-6 py-3 font-medium text-white hover:bg-indigo-700">
+              Entrar
+            </button>
+
+            <p class="text-sm text-slate-500">
+              ¿Olvidaste tu contraseña? <a href="#contacto" class="text-indigo-600 hover:text-indigo-700 font-medium">Contacta soporte</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contacto" class="border-t border-slate-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <p class="font-semibold">Biblioteca</p>
+          <p class="mt-2 text-sm text-slate-600">
+            Plataforma para acceso a catálogo, reservas y gestión de préstamos.
+          </p>
+        </div>
+
+        <div>
+          <p class="font-semibold">Contacto</p>
+          <ul class="mt-2 text-sm text-slate-600 space-y-1">
+            <li>Correo: soporte@biblioteca.com</li>
+            <li>Tel: (000) 000 0000</li>
+            <li>Horario: Lun–Vie 9:00–18:00</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="font-semibold">Enlaces</p>
+          <ul class="mt-2 text-sm text-slate-600 space-y-1">
+            <li><a class="hover:text-slate-900" href="#catalogo">Catálogo</a></li>
+            <li><a class="hover:text-slate-900" href="#servicios">Servicios</a></li>
+            <li><a class="hover:text-slate-900" href="#login">Login</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between border-t border-slate-200 pt-6">
+        <p class="text-sm text-slate-500">© <span id="year"></span> Biblioteca. Todos los derechos reservados.</p>
+        <p class="text-xs text-slate-500">Imágenes: Unsplash (licencia libre).</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS vanilla -->
+  <script>
+    (function () {
+      const btn = document.getElementById("btnMenu");
+      const menu = document.getElementById("mobileMenu");
+      const year = document.getElementById("year");
+
+      if (year) year.textContent = new Date().getFullYear();
+
+      function setExpanded(val) {
+        btn.setAttribute("aria-expanded", val ? "true" : "false");
+      }
+
+      function openMenu() {
+        menu.classList.remove("hidden");
+        setExpanded(true);
+      }
+
+      function closeMenu() {
+        menu.classList.add("hidden");
+        setExpanded(false);
+      }
+
+      btn.addEventListener("click", function () {
+        const isHidden = menu.classList.contains("hidden");
+        if (isHidden) openMenu();
+        else closeMenu();
+      });
+
+      // Cierra menú al hacer click en un link
+      menu.addEventListener("click", function (e) {
+        const target = e.target;
+        if (target && target.tagName === "A") closeMenu();
+      });
+
+      // Cierra con Escape
+      window.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeMenu();
+      });
+
+      // Al pasar a desktop, oculta el panel móvil
+      const mq = window.matchMedia("(min-width: 768px)");
+      mq.addEventListener("change", function (e) {
+        if (e.matches) closeMenu();
+      });
+    })();
+  </script>
+</body>
+</html>
