@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca | Login</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <main class="min-h-screen grid place-items-center px-4 py-10">
+    <section class="w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <!-- Panel izquierdo (branding) -->
+        <aside class="relative bg-gradient-to-br from-indigo-600 to-indigo-800 text-white p-8 sm:p-10">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 font-bold">B</span>
+            <div class="leading-tight">
+              <p class="text-lg font-semibold">Biblioteca</p>
+              <p class="text-sm text-white/80">Acceso al sistema</p>
+            </div>
+          </div>
+
+          <h1 class="mt-10 text-3xl font-semibold tracking-tight">
+            Administra tu cuenta en un solo lugar
+          </h1>
+          <p class="mt-3 text-white/85 leading-relaxed">
+            Accede para gestionar préstamos, revisar historial y reservar libros.
+            Si no tienes cuenta, regístrate en segundos.
+          </p>
+
+          <ul class="mt-8 space-y-3 text-sm text-white/90">
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-flex h-2 w-2 rounded-full bg-white"></span>
+              Catálogo y disponibilidad en tiempo real
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-flex h-2 w-2 rounded-full bg-white"></span>
+              Control de préstamos y recordatorios
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-flex h-2 w-2 rounded-full bg-white"></span>
+              Historial y reservas
+            </li>
+          </ul>
+
+          <p class="absolute bottom-6 left-8 right-8 text-xs text-white/70">
+            © <span id="year"></span> Biblioteca • Todos los derechos reservados
+          </p>
+        </aside>
+
+        <!-- Panel derecho (forms) -->
+        <div class="p-6 sm:p-10">
+          <!-- Tabs -->
+          <div class="flex items-center gap-2 rounded-2xl bg-slate-50 p-2 border border-slate-200">
+            <button id="tabLogin"
+              class="flex-1 rounded-xl px-4 py-2.5 font-medium text-slate-900 bg-white border border-slate-200 shadow-sm"
+              type="button"
+              aria-controls="panelLogin"
+              aria-selected="true"
+            >
+              Acceder
+            </button>
+            <button id="tabRegister"
+              class="flex-1 rounded-xl px-4 py-2.5 font-medium text-slate-600 hover:text-slate-900"
+              type="button"
+              aria-controls="panelRegister"
+              aria-selected="false"
+            >
+              Registrarse
+            </button>
+          </div>
+
+          <!-- Alerts -->
+          <div id="alert"
+            class="mt-4 hidden rounded-2xl border px-4 py-3 text-sm"
+            role="alert"
+            aria-live="polite"
+          ></div>
+
+          <!-- LOGIN -->
+          <section id="panelLogin" class="mt-6" aria-labelledby="tabLogin">
+            <header>
+              <h2 class="text-2xl font-semibold">Bienvenido</h2>
+              <p class="mt-1 text-slate-600">Ingresa tu correo y contraseña para acceder.</p>
+            </header>
+
+            <form id="formLogin" class="mt-6 space-y-4" novalidate>
+              <div>
+                <label for="loginEmail" class="block text-sm font-medium text-slate-700">Email</label>
+                <input id="loginEmail" name="email" type="email" autocomplete="email" required
+                  class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="tuemail@correo.com" />
+                <p class="mt-1 hidden text-xs text-rose-600" data-error-for="loginEmail"></p>
+              </div>
+
+              <div>
+                <label for="loginPassword" class="block text-sm font-medium text-slate-700">Password</label>
+                <input id="loginPassword" name="password" type="password" autocomplete="current-password" required
+                  class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="••••••••" />
+                <p class="mt-1 hidden text-xs text-rose-600" data-error-for="loginPassword"></p>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <label class="inline-flex items-center gap-2 text-sm text-slate-600">
+                  <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                  Mantener sesión
+                </label>
+                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-700">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </div>
+
+              <button type="submit"
+                class="w-full rounded-2xl bg-indigo-600 px-6 py-3 font-medium text-white hover:bg-indigo-700
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Acceder
+              </button>
+
+              <p class="text-sm text-slate-600">
+                ¿No tienes cuenta?
+                <button type="button" id="goRegister" class="font-medium text-indigo-600 hover:text-indigo-700">
+                  Regístrate aquí
+                </button>
+              </p>
+            </form>
+          </section>
+
+          <!-- REGISTER -->
+          <section id="panelRegister" class="mt-6 hidden" aria-labelledby="tabRegister">
+            <header>
+              <h2 class="text-2xl font-semibold">Crea tu cuenta</h2>
+              <p class="mt-1 text-slate-600">Regístrate con datos básicos para poder acceder después.</p>
+            </header>
+
+            <form id="formRegister" class="mt-6 space-y-4" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="regName" class="block text-sm font-medium text-slate-700">Nombre</label>
+                  <input id="regName" name="name" type="text" autocomplete="given-name" required
+                    class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Tu nombre" />
+                  <p class="mt-1 hidden text-xs text-rose-600" data-error-for="regName"></p>
+                </div>
+
+                <div>
+                  <label for="regLastName" class="block text-sm font-medium text-slate-700">Apellido</label>
+                  <input id="regLastName" name="lastname" type="text" autocomplete="family-name" required
+                    class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Tu apellido" />
+                  <p class="mt-1 hidden text-xs text-rose-600" data-error-for="regLastName"></p>
+                </div>
+              </div>
+
+              <div>
+                <label for="regEmail" class="block text-sm font-medium text-slate-700">Email</label>
+                <input id="regEmail" name="email" type="email" autocomplete="email" required
+                  class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="tuemail@correo.com" />
+                <p class="mt-1 hidden text-xs text-rose-600" data-error-for="regEmail"></p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="regPassword" class="block text-sm font-medium text-slate-700">Password</label>
+                  <input id="regPassword" name="password" type="password" autocomplete="new-password" required
+                    class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Mínimo 6 caracteres" />
+                  <p class="mt-1 hidden text-xs text-rose-600" data-error-for="regPassword"></p>
+                </div>
+
+                <div>
+                  <label for="regConfirm" class="block text-sm font-medium text-slate-700">Confirmar password</label>
+                  <input id="regConfirm" name="confirm" type="password" autocomplete="new-password" required
+                    class="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Repite tu password" />
+                  <p class="mt-1 hidden text-xs text-rose-600" data-error-for="regConfirm"></p>
+                </div>
+              </div>
+
+              <div>
+                <label class="inline-flex items-start gap-2 text-sm text-slate-600">
+                  <input id="regTerms" type="checkbox"
+                    class="mt-1 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                  <span>
+                    Acepto los <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium">términos</a>
+                    y la <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium">política de privacidad</a>.
+                  </span>
+                </label>
+                <p class="mt-1 hidden text-xs text-rose-600" data-error-for="regTerms"></p>
+              </div>
+
+              <button type="submit"
+                class="w-full rounded-2xl bg-indigo-600 px-6 py-3 font-medium text-white hover:bg-indigo-700
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Crear cuenta
+              </button>
+
+              <p class="text-sm text-slate-600">
+                ¿Ya tienes cuenta?
+                <button type="button" id="goLogin" class="font-medium text-indigo-600 hover:text-indigo-700">
+                  Accede aquí
+                </button>
+              </p>
+            </form>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      // ---------- Helpers UI ----------
+      const year = document.getElementById("year");
+      if (year) year.textContent = new Date().getFullYear();
+
+      const tabLogin = document.getElementById("tabLogin");
+      const tabRegister = document.getElementById("tabRegister");
+      const panelLogin = document.getElementById("panelLogin");
+      const panelRegister = document.getElementById("panelRegister");
+      const goRegister = document.getElementById("goRegister");
+      const goLogin = document.getElementById("goLogin");
+
+      const alertBox = document.getElementById("alert");
+
+      function showAlert(type, msg) {
+        // type: "success" | "error" | "info"
+        alertBox.classList.remove("hidden");
+        alertBox.className = "mt-4 rounded-2xl border px-4 py-3 text-sm";
+        if (type === "success") alertBox.classList.add("border-emerald-200", "bg-emerald-50", "text-emerald-800");
+        if (type === "error")   alertBox.classList.add("border-rose-200", "bg-rose-50", "text-rose-800");
+        if (type === "info")    alertBox.classList.add("border-slate-200", "bg-slate-50", "text-slate-700");
+        alertBox.textContent = msg;
+      }
+
+      function hideAlert() {
+        alertBox.classList.add("hidden");
+        alertBox.textContent = "";
+      }
+
+      function setActiveTab(which) {
+        hideAlert();
+
+        const activeBtn = "bg-white border border-slate-200 shadow-sm text-slate-900";
+        const idleBtn   = "bg-transparent border border-transparent text-slate-600 hover:text-slate-900";
+
+        if (which === "login") {
+          panelLogin.classList.remove("hidden");
+          panelRegister.classList.add("hidden");
+
+          tabLogin.className = `flex-1 rounded-xl px-4 py-2.5 font-medium ${activeBtn}`;
+          tabRegister.className = `flex-1 rounded-xl px-4 py-2.5 font-medium ${idleBtn}`;
+
+          tabLogin.setAttribute("aria-selected", "true");
+          tabRegister.setAttribute("aria-selected", "false");
+        } else {
+          panelRegister.classList.remove("hidden");
+          panelLogin.classList.add("hidden");
+
+          tabRegister.className = `flex-1 rounded-xl px-4 py-2.5 font-medium ${activeBtn}`;
+          tabLogin.className = `flex-1 rounded-xl px-4 py-2.5 font-medium ${idleBtn}`;
+
+          tabRegister.setAttribute("aria-selected", "true");
+          tabLogin.setAttribute("aria-selected", "false");
+        }
+      }
+
+      tabLogin.addEventListener("click", () => setActiveTab("login"));
+      tabRegister.addEventListener("click", () => setActiveTab("register"));
+      goRegister?.addEventListener("click", () => setActiveTab("register"));
+      goLogin?.addEventListener("click", () => setActiveTab("login"));
+
+      // ---------- Validation helpers ----------
+      function setFieldError(id, msg) {
+        const input = document.getElementById(id);
+        const err = document.querySelector(`[data-error-for="${id}"]`);
+        if (!input || !err) return;
+
+        if (msg) {
+          input.classList.add("border-rose-300", "bg-rose-50");
+          err.textContent = msg;
+          err.classList.remove("hidden");
+        } else {
+          input.classList.remove("border-rose-300", "bg-rose-50");
+          err.textContent = "";
+          err.classList.add("hidden");
+        }
+      }
+
+      function isValidEmail(email) {
+        // validación simple
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      function clearLoginErrors() {
+        ["loginEmail", "loginPassword"].forEach(id => setFieldError(id, ""));
+      }
+
+      function clearRegisterErrors() {
+        ["regName", "regLastName", "regEmail", "regPassword", "regConfirm", "regTerms"].forEach(id => setFieldError(id, ""));
+      }
+
+      // ---------- Forms ----------
+      const formLogin = document.getElementById("formLogin");
+      const formRegister = document.getElementById("formRegister");
+
+      formLogin.addEventListener("submit", (e) => {
+        e.preventDefault();
+        hideAlert();
+        clearLoginErrors();
+
+        const email = document.getElementById("loginEmail").value.trim();
+        const pass  = document.getElementById("loginPassword").value;
+
+        let ok = true;
+        if (!email || !isValidEmail(email)) { setFieldError("loginEmail", "Ingresa un email válido."); ok = false; }
+        if (!pass || pass.length < 6) { setFieldError("loginPassword", "Tu password debe tener al menos 6 caracteres."); ok = false; }
+
+        if (!ok) {
+          showAlert("error", "Revisa los campos marcados.");
+          return;
+        }
+
+        // Demo: aquí conectarías tu backend / API
+        showAlert("success", "Acceso válido (demo). Conecta aquí tu autenticación real.");
+        formLogin.reset();
+      });
+
+      formRegister.addEventListener("submit", (e) => {
+        e.preventDefault();
+        hideAlert();
+        clearRegisterErrors();
+
+        const name = document.getElementById("regName").value.trim();
+        const last = document.getElementById("regLastName").value.trim();
+        const email = document.getElementById("regEmail").value.trim();
+        const pass  = document.getElementById("regPassword").value;
+        const conf  = document.getElementById("regConfirm").value;
+        const terms = document.getElementById("regTerms").checked;
+
+        let ok = true;
+
+        if (!name) { setFieldError("regName", "Este campo es obligatorio."); ok = false; }
+        if (!last) { setFieldError("regLastName", "Este campo es obligatorio."); ok = false; }
+        if (!email || !isValidEmail(email)) { setFieldError("regEmail", "Ingresa un email válido."); ok = false; }
+
+        if (!pass || pass.length < 6) {
+          setFieldError("regPassword", "Mínimo 6 caracteres.");
+          ok = false;
+        }
+
+        if (!conf) { setFieldError("regConfirm", "Confirma tu password."); ok = false; }
+        if (pass && conf && pass !== conf) { setFieldError("regConfirm", "Las contraseñas no coinciden."); ok = false; }
+
+        if (!terms) { setFieldError("regTerms", "Debes aceptar los términos para continuar."); ok = false; }
+
+        if (!ok) {
+          showAlert("error", "Revisa los campos marcados.");
+          return;
+        }
+
+        // Demo: simular registro
+        showAlert("success", "Registro completado (demo). Ya puedes iniciar sesión.");
+        formRegister.reset();
+        setActiveTab("login");
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -45,7 +45,6 @@
         <!-- Desktop menu -->
         <nav class="hidden md:flex items-center gap-2" aria-label="Menú principal">
           <a href="#inicio" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Inicio</a>
-          <a href="#login" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Login</a>
           <a href="#catalogo" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Catálogo</a>
           <a href="#servicios" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Servicios</a>
           <a href="#contacto" class="px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Contacto</a>
@@ -53,9 +52,9 @@
 
         <!-- Right actions -->
         <div class="hidden md:flex items-center gap-2">
-          <a href="#login"
+          <a href="{{ route('login') }}"
              class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 font-medium hover:bg-slate-100">
-            Entrar
+            Login
           </a>
           <a href="#catalogo"
              class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700">
