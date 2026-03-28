@@ -85,4 +85,33 @@ class PrestamosController extends Controller
 
         return redirect()->route('prestamos.index')->with('success', 'Préstamo registrado exitosamente.');
     }
+
+    public function entregar($id)
+    {
+        \DB::beginTransaction();
+
+        try {
+            $prestamo = Prestamo::with('libro')->findOrFail($id);
+
+            if ($prestamo->estado === 'entregado') {
+                return redirect()->route('prestamos.index')->with('success', 'Este prÃ©stamo ya estaba entregado.');
+            }
+
+            $prestamo->estado = 'entregado';
+            $prestamo->fecha_entrega = now();
+            $prestamo->save();
+
+            if ($prestamo->libro) {
+                $prestamo->libro->estatus = 0; // Marcar como disponible
+                $prestamo->libro->save();
+            }
+
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return redirect()->route('prestamos.index')->with('error', 'OcurriÃ³ un error al marcar la entrega: ' . $e->getMessage());
+        }
+
+        return redirect()->route('prestamos.index')->with('success', 'PrÃ©stamo marcado como entregado.');
+    }
 }
