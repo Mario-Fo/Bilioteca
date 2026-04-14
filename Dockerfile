@@ -1,3 +1,13 @@
+FROM node:20 AS node-builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
 FROM php:8.4-fpm
 
 # Install system dependencies
@@ -21,6 +31,7 @@ WORKDIR /var/www
 
 # Copy existing application directory contents
 COPY  . .
+COPY --from=node-builder /app/public/build /var/www/public/build
 
 # Install application dependencies
 RUN composer install --no-dev --optimize-autoloader
