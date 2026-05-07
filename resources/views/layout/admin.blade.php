@@ -84,8 +84,8 @@
               loading="lazy"
             />
             <div class="leading-tight">
-              <p class="text-sm font-semibold">Administrador</p>
-              <p class="text-xs text-slate-500">admin@biblioteca.com</p>
+              <p class="text-sm font-semibold"><a href="{{ route('usuarios.profile') }}" class="hover:underline">{{ Auth::user()->name }}</a></p>
+              <p class="text-xs text-slate-500">{{ Auth::user()->email }}</p>
             </div>
           </div>
 
@@ -161,25 +161,25 @@
         <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <article class="rounded-3xl border border-slate-200 bg-white p-5 custom-shadow hover-lift">
             <p class="text-sm text-slate-500">Libros</p>
-            <p class="mt-2 text-3xl font-semibold">8,420</p>
+            <p class="mt-2 text-3xl font-semibold">{{ number_format($totalLibros, 0, ',', '.') }}</p>
             <p class="mt-2 text-sm text-slate-600">En catalogo</p>
           </article>
 
           <article class="rounded-3xl border border-slate-200 bg-white p-5 custom-shadow hover-lift">
             <p class="text-sm text-slate-500">Usuarios</p>
-            <p class="mt-2 text-3xl font-semibold">1,248</p>
+            <p class="mt-2 text-3xl font-semibold">{{ number_format($total_usuarios, 0, ',', '.') }}</p>
             <p class="mt-2 text-sm text-slate-600">Registrados</p>
           </article>
 
           <article class="rounded-3xl border border-slate-200 bg-white p-5 custom-shadow hover-lift">
             <p class="text-sm text-slate-500">Prestamos</p>
-            <p class="mt-2 text-3xl font-semibold">312</p>
+            <p class="mt-2 text-3xl font-semibold">{{ number_format($libros_prestados, 0, ',', '.') }}</p>
             <p class="mt-2 text-sm text-slate-600">Activos</p>
           </article>
 
           <article class="rounded-3xl border border-slate-200 bg-white p-5 custom-shadow hover-lift">
             <p class="text-sm text-slate-500">Retrasos</p>
-            <p class="mt-2 text-3xl font-semibold">27</p>
+            <p class="mt-2 text-3xl font-semibold">{{ number_format($devoluciones_pendientes, 0, ',', '.') }}</p>
             <p class="mt-2 text-sm text-slate-600">Por atender</p>
           </article>
         </section>

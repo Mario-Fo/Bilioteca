@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::post("/home", [HomeController::class, "index"])->name("home");
     Route::get("/home", [HomeController::class, "index"])->name("home");
     Route::post("/logout", [AuthController::class, "logout"])->name("logout");
+    Route::get("/profile", [UsuariosController::class, "profile"])->name("usuarios.profile");
+    Route::put("/profile", [UsuariosController::class, "update_profile"])->name("usuarios.update_profile");
+    Route::put("/password", [UsuariosController::class, "update_password"])->name("usuarios.update_password");
 });
 
 Route::middleware(['auth', 'user.type:admin'])->group(function () {
